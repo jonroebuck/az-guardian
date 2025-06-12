@@ -5,4 +5,4 @@ inputs:
     description: 'Name of the Azure resource group'
 runs:
   using: "docker"
-  image: 'ghcr.io/jonroebuck/azguardian:check-resource-group-exists-latest'
+  image: "docker://ghcr.io/jonroebuck/azguardian:check-resource-group-exists-latest"
