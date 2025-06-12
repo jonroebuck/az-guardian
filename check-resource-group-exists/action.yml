@@ -1,5 +1,8 @@
 name: Check Resource Group Exists
 description: Checks if an Azure resource group exists.
+inputs:
+  resource_group_name:
+    description: 'Name of the Azure resource group'
 runs:
   using: "docker"
   image: 'ghcr.io/jonroebuck/azguardian:check-resource-group-exists-latest'
