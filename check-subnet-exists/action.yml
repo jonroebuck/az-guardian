@@ -1,0 +1,5 @@
+name: Placeholder Action
+description: Placeholder for future implementation.
+runs:
+  using: "docker"
+  image: "Dockerfile"

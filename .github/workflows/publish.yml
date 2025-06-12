@@ -3,12 +3,8 @@ name: Publish Azguardian Actions
 on:
   push:
     branches: [main]
-    paths:
-      - '*/Dockerfile'
-      - '*/entrypoint.py'
-      - '*/action.yml'
-      - '*/test/**'
-      - '.github/workflows/publish.yml'
+  pull_request:
+    branches: [main]
 
 jobs:
   build-and-push:
