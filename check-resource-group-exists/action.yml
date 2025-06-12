@@ -1,0 +1,3 @@
+runs:
+  using: 'docker'
+  image: 'ghcr.io/jonroebuck/azguardian:check-resource-group-exists-latest'

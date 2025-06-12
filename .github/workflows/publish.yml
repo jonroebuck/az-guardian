@@ -1,0 +1,51 @@
+name: Publish Azguardian Actions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*/Dockerfile'
+      - '*/entrypoint.py'
+      - '*/action.yml'
+      - '*/test/**'
+      - '.github/workflows/publish.yml'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        action:
+          - check-resource-group-exists
+          - check-vnet-exists
+          - check-subnet-exists
+          - check-kubernetes-cluster-exists
+          # add more action folders here
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install test dependencies
+        run: |
+          pip install pytest
+        working-directory: ./${{ matrix.action }}
+
+      - name: Run tests
+        run: pytest
+        working-directory: ./${{ matrix.action }}
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/jonroebuck/azguardian:${{ matrix.action }}-latest ./${{ matrix.action }}
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/jonroebuck/azguardian:${{ matrix.action }}-latest
