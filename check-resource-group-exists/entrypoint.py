@@ -17,7 +17,7 @@ def set_output(name, value):
 
 
 def main(client=None):
-    resource_group = os.environ.get("INPUT_RESOURCE_GROUP")
+    resource_group = os.environ.get("INPUT_RESOURCE_GROUP_NAME")
     subscription_id = os.environ.get("AZURE_SUBSCRIPTION_ID")
 
     if not client:
