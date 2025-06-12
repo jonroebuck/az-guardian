@@ -40,6 +40,10 @@ jobs:
         run: pip install pytest
         working-directory: ./${{ matrix.action }}
 
+      - name: Add action directory to PYTHONPATH
+        run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+        working-directory: ./${{ matrix.action }}
+
       - name: Run tests
         run: pytest
         working-directory: ./${{ matrix.action }}
